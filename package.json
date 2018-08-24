@@ -1,0 +1,29 @@
+{
+  "name": "electronapscanner",
+  "version": "0.0.1",
+  "description": "Electron app for scanning all eduroam APs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iTReprise/ElectronAPScanner.git"
+  },
+  "author": "Florian Utku",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iTReprise/ElectronAPScanner/issues"
+  },
+  "homepage": "https://github.com/iTReprise/ElectronAPScanner#readme",
+  "dependencies": {
+    "electron": "^2.0.8",
+    "node-fetch": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
