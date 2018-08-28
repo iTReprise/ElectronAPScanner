@@ -2,13 +2,52 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Eduroam AP Scanner</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script >window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.js');</script>
+    <script src="./logic.js"></script>
   </head>
   <body>
-    <h1>Eduroam AP Scanner</h1>
-    This is only a test. I repeat: only a test. <br> <br>
-    Electron <script>document.write(process.versions.electron)</script> <br>
-    Node.js <script>document.write(process.versions.node)</script> <br>
-    Chromium <script>document.write(process.versions.chrome)</script> <br>
+    <div id="container" class="container-fluid">
+      
+      <span hidden id="scanActive">Currently scanning...</span>
+
+      <div id="startScanRow" class="row startScan">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            <h1>
+              <a id="start">Click here to start scanning.</a>
+            </h1>
+          </div>
+      </div>
+
+      
+      <div id="stopScanRow" class="row stopScan">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <h1>
+            <a id="stop">Click here to stop scanning.</a>
+          </h1>
+        </div>
+      </div>
+      
+      <div hidden id="listScanRow" class="row listScan">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+          <div class="list-group listScanPlaces">
+            <a id="room01" class="list-group-item list-group-item-action">Cafeteria</a>
+            <a id="room02" class="list-group-item list-group-item-action">Haupthalle</a>
+            <a id="room03" class="list-group-item list-group-item-action">Lesesaal Mitte</a>
+            <a id="room04" class="list-group-item list-group-item-action">Lesesaal Mitte Erstes OG</a>
+            <a id="room05" class="list-group-item list-group-item-action">Lesesaal Ost</a>
+            <a id="room06" class="list-group-item list-group-item-action">Lesesaal West</a>
+            <a id="room07" class="list-group-item list-group-item-action">Offenes Magazin</a>
+            <a id="room08" class="list-group-item list-group-item-action">Room 8</a>
+          </div>
+        </div>
+      </div>
+
+      <a id="close">Click here to close this window.</a>
+      
+    </div>
   </body>
-</html>
+  </html>

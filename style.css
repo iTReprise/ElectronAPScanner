@@ -1,0 +1,52 @@
+html, body, .container-fluid {
+  height: 100%;
+}
+
+.startScan, .rooms {
+  background-color: aquamarine;
+}
+
+.stopScan {
+  background-color: papayawhip;
+}
+
+.row > div {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.row {
+  height: 50%;
+}
+
+.listScan {
+  height: 100%;
+  background-color: aquamarine;
+}
+
+
+#start, #stop, #scanActive {
+  text-decoration: none;
+  color: rgb(66, 66, 66);
+}
+
+
+#close {
+  color: black;
+  opacity: 0.7;
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+#scanActive {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+}
