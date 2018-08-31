@@ -131,7 +131,7 @@ $(() => {
     scanning(networkScan);
     $('#stopScanRow').show().height('100%');
     $('#listScanRow').hide();
-    $('#scanActive').show().append(`${roomIDMap.get(currentRoomID)}...`);
+    $('#scanActive').show().append(`${currentLibrary}-${roomIDMap.get(currentRoomID)}...`);
   });
 });
 
