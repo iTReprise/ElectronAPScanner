@@ -38,7 +38,7 @@ html, body, .container-fluid {
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 16px;
+  font-size: 22px;
   text-decoration: none;
 }
 
@@ -47,9 +47,9 @@ html, body, .container-fluid {
   top: 5px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 26px;
 }
 
 .list-group-item {
-  font-size: 25px;
+  font-size: 32px;
 }
