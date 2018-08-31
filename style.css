@@ -20,7 +20,7 @@ html, body, .container-fluid {
   height: 50%;
 }
 
-.listScan {
+.listScan, .listLib {
   height: 100%;
   background-color: aquamarine;
 }
@@ -31,15 +31,14 @@ html, body, .container-fluid {
   color: rgb(66, 66, 66);
 }
 
-
 #close {
   color: black;
   opacity: 0.7;
   position: absolute;
-  bottom: 5px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 12px;
+  font-size: 16px;
   text-decoration: none;
 }
 
@@ -48,5 +47,9 @@ html, body, .container-fluid {
   top: 5px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 16px;
+  font-size: 20px;
+}
+
+.list-group-item {
+  font-size: 25px;
 }

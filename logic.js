@@ -24,13 +24,17 @@ const networkScan = 'sudo iwlist wlan0 scanning | egrep \'Address|Frequency|ESSI
 const addressSet = new Set();
 const roomIDMap = new Map();
 
+// DEPRECATED
 // Change this to your prefered name for the legend file
-const legendFileName = 'legend.txt';
+// const legendFileName = 'legend.txt';
 
 // Change this to whatever value you want as an ID
 // also change the increment in line 93.
 let currentRoomID = 1;
 
+let currentLibrary = '';
+
+let stringBuilder = '';
 
 /**
  * Removes unnecessary information and saves every mac-address in a hashmap.
@@ -54,10 +58,8 @@ function saveAddresses(stdout) {
     addressSet.add(address);
   });
 
-  fs.writeFile(`${currentRoomID}.txt`, [...addressSet].join('\n'), (err) => {
-    if (err) console.log('err: ', err);
-    scanning(networkScan);
-  });
+  stringBuilder = `${currentLibrary}-${roomIDMap.get(currentRoomID)}|${[...addressSet].join('|')}`;
+  scanning(networkScan);
 }
 
 /**
@@ -78,7 +80,8 @@ function scanning(command) {
  * to make a choice, if he wants to continue scanning.
  */
 function cont() {
-  fs.appendFileSync(`${currentRoomID}.txt`, '\n');
+  fs.appendFileSync(`${currentLibrary}.txt`, `${stringBuilder}\n`);
+  console.log('stringBuilder: ', stringBuilder);
   currentRoomID += 1;
   addressSet.clear();
   scanning(networkScan);
@@ -103,18 +106,27 @@ $(() => {
   $('#close').click(() => {
     if (roomIDMap.size === 0) {
       remote.getCurrentWindow().close();
-      return;
+      // return;
     }
+    /* DEPRECATED
     fs.writeFileSync(legendFileName, 'Zuordnung von ID zu Raumname/Gebietsname:\n');
     roomIDMap.forEach((value, key) => {
       fs.appendFileSync(legendFileName, `${key} = ${value}\n`);
     });
+    */
     remote.getCurrentWindow().close();
   });
 });
 
 $(() => {
-  $('.list-group-item').click((event) => {
+  $('.libList').click((event) => {
+    currentLibrary = $(event.target).text();
+    $('#listLibRow').hide();
+    $('#stopScanRow').show();
+    $('#startScanRow').show();
+  });
+
+  $('.areaList').click((event) => {
     roomIDMap.set(currentRoomID, $(event.target).text());
     scanning(networkScan);
     $('#stopScanRow').show().height('100%');
