@@ -1,4 +1,5 @@
 /**
+ * OLD MESSAGE - TODO
  * This programm scans your environment for APs of the eduroam network.
  * Just run it with 'node script.js' and map out a room.
  * If you want to pause scanning (f.e. when moving to another room)
@@ -121,6 +122,19 @@ $(() => {
 $(() => {
   $('.libList').click((event) => {
     currentLibrary = $(event.target).text();
+
+    /**
+     * Set the available rooms.
+     * Every library has its own file where each room is written on a new line.
+     */
+    const allRooms = fs.readFileSync(`./rooms/${currentLibrary.toLowerCase()}Rooms`, 'utf-8').split('\n');
+    for (let i = 0; i < allRooms.length; i += 1) {
+      const element = allRooms[i];
+      console.log('i: ', i);
+      console.log('element: ', element);
+      $(`#room0${i}`).text(element);
+    }
+
     $('#listLibRow').hide();
     $('#stopScanRow').show();
     $('#startScanRow').show();
