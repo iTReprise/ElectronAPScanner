@@ -89,13 +89,13 @@ function cont() {
 }
 
 $(() => {
-  $('#start').click(() => {
+  $('#startScanRow').click(() => {
     $('#startScanRow').hide();
     $('#stopScanRow').hide();
     $('#listScanRow').show();
   });
 
-  $('#stop').click(() => {
+  $('#stopScanRow').click(() => {
     if ($('#scanActive').is(':visible')) {
       cont();
       $('#scanActive').hide();
