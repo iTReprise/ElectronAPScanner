@@ -23,7 +23,6 @@ const { remote } = require('electron');
 
 const networkScan = 'sudo iwlist wlan0 scanning | egrep \'Address|Frequency|ESSID\' | grep -B2 \'eduroam\' | grep -B1 -A1 \'Frequency:2\'';
 const addressSet = new Set();
-const roomIDMap = new Map();
 
 // DEPRECATED
 // Change this to your prefered name for the legend file
@@ -31,8 +30,8 @@ const roomIDMap = new Map();
 
 // Change this to whatever value you want as an ID
 // also change the increment in line 93.
-let currentRoomID = 1;
 
+let currentRoom = '';
 let currentLibrary = '';
 
 let stringBuilder = '';
@@ -53,13 +52,12 @@ function saveAddresses(stdout) {
     .replace(/--/g, '');
 
   const addresses = cleaned.match(/.{1,17}/g);
-  console.log('addresses: ', addresses);
   addresses.forEach((element) => {
     const address = element.replace(/.$/, '0');
     addressSet.add(address);
   });
 
-  stringBuilder = `${currentLibrary}-${roomIDMap.get(currentRoomID)}|${[...addressSet].join('|')}`;
+  stringBuilder = `${currentLibrary}-${currentRoom}|${[...addressSet].join('|')}`;
   scanning(networkScan);
 }
 
@@ -70,20 +68,19 @@ function saveAddresses(stdout) {
  */
 function scanning(command) {
   childProcess.exec(command, (execerr, stdout) => {
-    if (execerr) scanning(command);
+    if (execerr) scanning(command); // oh no infinite loop ~ here we go
     if (stdout) saveAddresses(stdout);
   });
 }
 
 /**
+ * OLD MESSAGE -TODO
  * This function gets called, when the user interrupts the program
  * via Ctrl + C. The programm stops scanning and waits for the user
  * to make a choice, if he wants to continue scanning.
  */
 function cont() {
   fs.appendFileSync(`${currentLibrary}.txt`, `${stringBuilder}\n`);
-  console.log('stringBuilder: ', stringBuilder);
-  currentRoomID += 1;
   addressSet.clear();
   scanning(networkScan);
 }
@@ -105,16 +102,6 @@ $(() => {
   });
 
   $('#close').click(() => {
-    if (roomIDMap.size === 0) {
-      remote.getCurrentWindow().close();
-      // return;
-    }
-    /* DEPRECATED
-    fs.writeFileSync(legendFileName, 'Zuordnung von ID zu Raumname/Gebietsname:\n');
-    roomIDMap.forEach((value, key) => {
-      fs.appendFileSync(legendFileName, `${key} = ${value}\n`);
-    });
-    */
     remote.getCurrentWindow().close();
   });
 });
@@ -130,8 +117,6 @@ $(() => {
     const allRooms = fs.readFileSync(`./rooms/${currentLibrary.toLowerCase()}Rooms`, 'utf-8').split('\n');
     for (let i = 0; i < allRooms.length; i += 1) {
       const element = allRooms[i];
-      console.log('i: ', i);
-      console.log('element: ', element);
       $(`#room0${i}`).text(element);
     }
 
@@ -141,14 +126,12 @@ $(() => {
   });
 
   $('.areaList').click((event) => {
-    roomIDMap.set(currentRoomID, $(event.target).text());
+    currentRoom = $(event.target).text();
     scanning(networkScan);
     $('#stopScanRow').show().height('100%');
     $('#listScanRow').hide();
-    $('#scanActive').show().append(`${currentLibrary}-${roomIDMap.get(currentRoomID)}...`);
+    $('#scanActive').show().append(`${currentLibrary}-${currentRoom}...`);
   });
 });
 
 process.on('SIGINT', () => cont());
-// setTimeout(() => process.exit(22), 5000);
-// saveAddresses(fs.readFileSync('test.txt').toString());

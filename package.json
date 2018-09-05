@@ -1,5 +1,5 @@
 {
-  "name": "electronapscanner",
+  "name": "apscanner",
   "version": "0.0.1",
   "description": "Electron app for scanning all eduroam APs",
   "main": "main.js",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/iTReprise/ElectronAPScanner.git"
   },
   "author": "Florian Utku",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/iTReprise/ElectronAPScanner/issues"
   },
